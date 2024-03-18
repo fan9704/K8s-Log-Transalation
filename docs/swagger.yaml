@@ -1,0 +1,22 @@
+info:
+  contact: {}
+paths:
+  /v1/users/{id}:
+    get:
+      parameters:
+      - default: 1
+        description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      tags:
+      - user
+swagger: "2.0"
