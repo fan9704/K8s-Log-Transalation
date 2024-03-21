@@ -1,11 +1,18 @@
-FROM golang:latest
+FROM golang:alpine
 
-RUN mkdir -p /usr/local/go/src/ironman-2021
-WORKDIR /usr/local/go/src/ironman-2021
-ADD . /usr/local/go/src/ironman-2021
+ENV DB_CONFIG=postgres://test:123456@127.0.0.1:5432/k8slog
+ENV PORT=7780
+
+WORKDIR /app
+
+COPY go.mod .
+COPY go.sum .
 
 RUN go mod download
-RUN go build ./main.go
 
-EXPOSE 8080
+COPY . .
+EXPOSE 7780
+
+RUN go build -o main .
+
 CMD ["./main"]
