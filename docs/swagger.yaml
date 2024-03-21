@@ -1,6 +1,57 @@
+definitions:
+  controller.Register:
+    properties:
+      account:
+        example: account
+        type: string
+      email:
+        example: test123@gmail.com
+        type: string
+      password:
+        example: password
+        type: string
+    required:
+    - account
+    - email
+    - password
+    type: object
 info:
   contact: {}
 paths:
+  /v1/command/k8sgpt:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      tags:
+      - command
+  /v1/users:
+    post:
+      parameters:
+      - description: language
+        in: header
+        name: language
+        required: true
+        type: string
+      - description: register
+        in: body
+        name: register
+        required: true
+        schema:
+          $ref: '#/definitions/controller.Register'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      tags:
+      - user
   /v1/users/{id}:
     get:
       parameters:
